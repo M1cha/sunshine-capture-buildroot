@@ -1,0 +1,3 @@
+BR2_SUNSHINECAP_REPO=$(dirname "${BASH_SOURCE[0]}")
+BR2_SUNSHINECAP_REPO=$(realpath "$BR2_SUNSHINECAP_REPO")
+export BR2_EXTERNAL="$BR2_SUNSHINECAP_REPO/buildroot-external-sunshinecap"
