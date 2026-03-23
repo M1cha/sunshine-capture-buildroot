@@ -1,0 +1,10 @@
+config BR2_PACKAGE_LIBRGA
+	bool "librga"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_INSTALL_LIBSTDCPP
+	select BR2_PACKAGE_LIBDRM
+	help
+	  RGA (Raster Graphic Acceleration Unit) is an independent 2D hardware
+	  accelerator that can be used to speed up point/line drawing, perform
+	  image resizing, rotation, bitBlt, alpha blending and other common 2D
+	  graphics operations.
