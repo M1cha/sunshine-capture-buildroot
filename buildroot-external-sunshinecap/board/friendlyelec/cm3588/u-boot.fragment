@@ -1,0 +1,1 @@
+CONFIG_DEFAULT_FDT_FILE="rockchip/rk3588-nanopi6-rev09.dtb"
