@@ -1,0 +1,16 @@
+config BR2_PACKAGE_SUNSHINE
+	bool "sunshine"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_INSTALL_LIBSTDCPP
+	select BR2_HOST_CMAKE_AT_LEAST_3_20
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_LIBMINIUPNPC
+	select BR2_PACKAGE_LIBEVDEV
+	select BR2_PACKAGE_OPUS
+	select BR2_PACKAGE_PULSEAUDIO
+	select BR2_PACKAGE_FFMPEG_SUNSHINE
+	select BR2_PACKAGE_FFMPEG_CBS
+	help
+	  Self-hosted game stream host for Moonlight.
+

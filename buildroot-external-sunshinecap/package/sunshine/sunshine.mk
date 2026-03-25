@@ -1,0 +1,40 @@
+################################################################################
+#
+# sunshine
+#
+################################################################################
+
+SUNSHINE_VERSION = v2025.924.154138
+SUNSHINE_SITE = https://github.com/LizardByte/Sunshine
+SUNSHINE_SITE_METHOD = git
+SUNSHINE_GIT_SUBMODULES = YES
+SUNSHINE_LICENSE = GPL-3.0
+SUNSHINE_LICENSE_FILES = LICENSE
+SUNSHINE_DEPENDENCIES = openssl libcurl libminiupnpc libevdev opus pulseaudio ffmpeg-sunshine ffmpeg-cbs
+
+SUNSHINE_EXTRA_DOWNLOADS = \
+	https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.xz \
+	https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
+
+define COPY_DOWNLOADED_FILES
+	mkdir -p $(@D)/_deps/boost-subbuild/boost-populate-prefix/src
+	cp $(SUNSHINE_DL_DIR)/boost-1.87.0-cmake.tar.xz $(@D)/_deps/boost-subbuild/boost-populate-prefix/src/
+
+	mkdir -p $(@D)/_deps/json-subbuild/json-populate-prefix/src
+	cp $(SUNSHINE_DL_DIR)/json.tar.xz $(@D)/_deps/json-subbuild/json-populate-prefix/src/
+endef
+SUNSHINE_PRE_CONFIGURE_HOOKS += COPY_DOWNLOADED_FILES
+
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_CUDA=OFF
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_DRM=OFF
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_VAAPI=OFF
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_WAYLAND=OFF
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_X11=OFF
+SUNSHINE_CONF_OPTS += -DSUNSHINE_ENABLE_TRAY=OFF
+SUNSHINE_CONF_OPTS += -DFFMPEG_PREPARED_BINARIES=$(STAGING_DIR)/opt/ffmpeg-sunshine
+SUNSHINE_CONF_OPTS += -DFFMPEG_PLATFORM_LIBRARIES="x264;x265"
+SUNSHINE_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF
+
+$(eval $(cmake-package))
+
+
