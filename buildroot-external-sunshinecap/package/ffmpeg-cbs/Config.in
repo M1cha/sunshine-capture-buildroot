@@ -1,0 +1,6 @@
+config BR2_PACKAGE_FFMPEG_CBS
+	bool "ffmpeg cbs"
+	select BR2_PACKAGE_FFMPEG_SUNSHINE
+	help
+	  ffmpegs internal cbs code built as a library.
+
