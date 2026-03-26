@@ -179,6 +179,12 @@ config BR2_PACKAGE_FFMPEG_SUNSHINE_EXTRACONF
 	  Extra parameters that will be appended to FFmpeg's
 	  ./configure commandline.
 
+config BR2_PACKAGE_FFMPEG_SUNSHINE_RKMPP
+	bool "Enable Rockchip MPP"
+	depends on BR2_PACKAGE_FFMPEG_SUNSHINE_VERSION3
+	select BR2_PACKAGE_RKMPP
+	select BR2_PACKAGE_LIBDRM
+
 endif
 
 comment "ffmpeg needs a toolchain w/ threads"
