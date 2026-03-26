@@ -31,6 +31,12 @@ config BR2_PACKAGE_FFMPEG_SUNSHINE_GPL
 	  allow use of GPL code, the resulting libs and binaries will
 	  be under GPL
 
+config BR2_PACKAGE_FFMPEG_SUNSHINE_VERSION3
+	bool "Enable (L)GPL to version 3 code"
+	help
+	  allow use of (L)GPL version 3 code, the resulting libs and binaries
+	  will be under (L)GPL version 3
+
 config BR2_PACKAGE_FFMPEG_SUNSHINE_NONFREE
 	bool "Enable nonfree code"
 	help
