@@ -1,0 +1,33 @@
+From 014bb4233b157ea3942fc0034c828ef553374e9d Mon Sep 17 00:00:00 2001
+From: Michael Zimmermann <sigmaepsilon92@gmail.com>
+Date: Sat, 18 Apr 2026 14:34:48 +0200
+Subject: [PATCH] cm3588: spl: prefer booting from microsd
+
+This allows booting from a microsd even if the emmc has an SPL flashed.
+
+This does not allow booting a rockchip uboot (2017) though, because that
+seems to be incompatible with the way it gets loaded by mainline SPL.
+---
+ arch/arm/dts/rk3588-friendlyelec-cm3588-nas-u-boot.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm/dts/rk3588-friendlyelec-cm3588-nas-u-boot.dtsi b/arch/arm/dts/rk3588-friendlyelec-cm3588-nas-u-boot.dtsi
+index 2e60f2dce8f..1fb7713c114 100644
+--- a/arch/arm/dts/rk3588-friendlyelec-cm3588-nas-u-boot.dtsi
++++ b/arch/arm/dts/rk3588-friendlyelec-cm3588-nas-u-boot.dtsi
+@@ -2,6 +2,12 @@
+ 
+ #include "rk3588-u-boot.dtsi"
+ 
++/ {
++	chosen {
++		u-boot,spl-boot-order = &sdmmc, &sdhci;
++	};
++};
++
+ &sdhci {
+ 	cap-mmc-highspeed;
+ 	mmc-hs200-1_8v;
+-- 
+2.53.0
+
