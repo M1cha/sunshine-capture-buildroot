@@ -1,0 +1,29 @@
+From 4f1bf625394e22a5fb156430b11c0661a885c78a Mon Sep 17 00:00:00 2001
+From: Michael Zimmermann <sigmaepsilon92@gmail.com>
+Date: Sat, 18 Apr 2026 17:51:16 +0200
+Subject: [PATCH] cm3588: use mmc numbering, that's compatible with mainline
+ uboot
+
+---
+ arch/arm64/boot/dts/rockchip/rk3588-nanopi6-common.dtsi | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopi6-common.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopi6-common.dtsi
+index fc2d035c772e7..ebe8ea6ef34da 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopi6-common.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopi6-common.dtsi
+@@ -24,9 +24,8 @@ / {
+ 		     "rockchip,rk3588";
+ 
+ 	aliases {
+-		mmc0 = &sdmmc;
+-		mmc1 = &sdio;
+-		mmc2 = &sdhci;
++		mmc0 = &sdhci;
++		mmc1 = &sdmmc;
+ 	};
+ 
+ 	chosen: chosen {
+-- 
+2.53.0
+

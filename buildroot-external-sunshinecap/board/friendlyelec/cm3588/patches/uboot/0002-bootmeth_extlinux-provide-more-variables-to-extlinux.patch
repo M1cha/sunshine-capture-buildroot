@@ -1,0 +1,78 @@
+From dee991342a61031dc3a7393c481332c599116576 Mon Sep 17 00:00:00 2001
+From: Michael Zimmermann <sigmaepsilon92@gmail.com>
+Date: Sat, 18 Apr 2026 17:17:50 +0200
+Subject: [PATCH] bootmeth_extlinux: provide more variables to extlinux
+
+This allows the extlinux file to e.g. set the root device based on where
+the extlinux config was found.
+---
+ boot/bootmeth_extlinux.c | 43 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+diff --git a/boot/bootmeth_extlinux.c b/boot/bootmeth_extlinux.c
+index 921d721a27b..d3f166107e1 100644
+--- a/boot/bootmeth_extlinux.c
++++ b/boot/bootmeth_extlinux.c
+@@ -15,6 +15,7 @@
+ #include <bootstd.h>
+ #include <command.h>
+ #include <dm.h>
++#include <env.h>
+ #include <extlinux.h>
+ #include <fs.h>
+ #include <malloc.h>
+@@ -179,9 +180,51 @@ static int extlinux_boot(struct udevice *dev, struct bootflow *bflow)
+ 	struct pxe_context ctx;
+ 	struct extlinux_info info;
+ 	struct extlinux_plat *plat;
++	struct blk_desc *desc;
+ 	ulong addr;
+ 	int ret;
+ 
++	if (bflow->blk) {
++		desc = dev_get_uclass_plat(bflow->blk);
++		if (desc->uclass_id == UCLASS_USB) {
++			ret = env_set("devtype", "usb");
++		} else {
++			/*
++			 * If the uclass is AHCI, but the driver is ATA
++			 * (not scsi), set devtype to sata
++			 */
++			if (IS_ENABLED(CONFIG_SATA) &&
++			    desc->uclass_id == UCLASS_AHCI)
++				ret = env_set("devtype", "sata");
++			else
++				ret = env_set("devtype", blk_get_devtype(bflow->blk));
++		}
++		if (!ret)
++			ret = env_set_hex("devnum", desc->devnum);
++		if (!ret)
++			ret = env_set_hex("distro_bootpart", bflow->part);
++		if (!ret)
++			ret = env_set("prefix", bflow->subdir);
++		if (!ret && IS_ENABLED(CONFIG_ARCH_SUNXI) &&
++		    !strcmp("mmc", blk_get_devtype(bflow->blk)))
++			ret = env_set_hex("mmc_bootdev", desc->devnum);
++	} else {
++		const struct udevice *media = dev_get_parent(bflow->dev);
++
++		ret = env_set("devtype",
++			      uclass_get_name(device_get_uclass_id(media)));
++		if (!ret)
++			ret = env_set_hex("devnum", dev_seq(media));
++	}
++	if (ret)
++		return log_msg_ret("env", ret);
++
++	log_debug("devtype: %s\n", env_get("devtype"));
++	log_debug("devnum: %s\n", env_get("devnum"));
++	log_debug("distro_bootpart: %s\n", env_get("distro_bootpart"));
++	log_debug("prefix: %s\n", env_get("prefix"));
++	log_debug("mmc_bootdev: %s\n", env_get("mmc_bootdev"));
++
+ 	addr = map_to_sysmem(bflow->buf);
+ 	info.dev = dev;
+ 	info.bflow = bflow;
+-- 
+2.53.0
+
