@@ -1,0 +1,13 @@
+[Unit]
+Description=Grow data Partition
+DefaultDependencies=no
+After=dev-disk-bootdev-by\x2dpartlabel-data.device
+Requires=dev-disk-bootdev-by\x2dpartlabel-data.device
+Conflicts=shutdown.target
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/growpart/growpart-systemd /dev/disk/bootdev/by-partlabel/data
+TimeoutSec=infinity

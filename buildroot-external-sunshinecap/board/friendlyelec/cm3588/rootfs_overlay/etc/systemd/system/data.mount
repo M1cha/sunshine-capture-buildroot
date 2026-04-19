@@ -1,0 +1,12 @@
+[Unit]
+Description=Persistent data
+After=growpart-data.service
+Before=systemd-growfs@data.service
+Wants=systemd-growfs@data.service growpart-data.service
+
+[Mount]
+What=/dev/disk/bootdev/by-partlabel/data
+Where=/data
+Type=ext4
+Options=defaults
+
