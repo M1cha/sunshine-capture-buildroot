@@ -1,0 +1,19 @@
+#!/bin/ash
+
+mount -n -t tmpfs tmpfs /tmp
+mkdir -p \
+	/tmp/lower \
+	/tmp/upper \
+	/tmp/work
+mount -n -o bind / /tmp/lower
+
+mount -n \
+	-t overlay \
+	-o lowerdir=/tmp/lower,upperdir=/tmp/upper,workdir=/tmp/work,redirect_dir=on,index=on,xino=on overlay_root \
+	/mnt
+
+# To be able to check, which files the system creates.
+mkdir /mnt/overlayfs_upper
+mount -n -o bind /tmp/upper /mnt/overlayfs_upper
+
+exec chroot /mnt /sbin/init

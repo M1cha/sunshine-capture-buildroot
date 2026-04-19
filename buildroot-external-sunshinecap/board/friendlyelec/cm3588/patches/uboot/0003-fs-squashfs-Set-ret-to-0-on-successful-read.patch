@@ -1,0 +1,27 @@
+From 209b1fbe4a496d6cc4b0836831c98615f7d609d8 Mon Sep 17 00:00:00 2001
+From: Michael Zimmermann <sigmaepsilon92@gmail.com>
+Date: Sun, 19 Apr 2026 14:12:44 +0200
+Subject: [PATCH] fs/squashfs: Set ret to 0 on successful read
+
+I might still be a positive number due to the call to sqfs_disk_read.
+This only happens when reading a file from an uncompressed squashfs.
+---
+ fs/squashfs/sqfs.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/squashfs/sqfs.c b/fs/squashfs/sqfs.c
+index 4d3d83b7587..38fb74e02a1 100644
+--- a/fs/squashfs/sqfs.c
++++ b/fs/squashfs/sqfs.c
+@@ -1629,6 +1629,8 @@ static int sqfs_read_nest(const char *filename, void *buf, loff_t offset,
+ 		*actread = finfo.size;
+ 	}
+ 
++	ret = 0;
++
+ out:
+ 	free(fragment);
+ 	free(datablock);
+-- 
+2.53.0
+
