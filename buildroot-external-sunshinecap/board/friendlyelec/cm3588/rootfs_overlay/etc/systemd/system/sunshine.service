@@ -6,6 +6,7 @@ After=data.mount
 Requires=data.mount
 
 [Service]
+CPUAffinity=4-7
 Environment=CONFIGURATION_DIRECTORY=/data
 ExecStartPre=/usr/lib/sunshine/init-config
 ExecStart=/usr/bin/sunshine
