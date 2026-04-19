@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -euo pipefail
+
+parent="${DEVNAME%p*}"
+exec test "$parent" = "/dev/$bootdev"

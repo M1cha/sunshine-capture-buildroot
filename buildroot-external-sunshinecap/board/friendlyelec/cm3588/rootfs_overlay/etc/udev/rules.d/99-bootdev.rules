@@ -1,0 +1,4 @@
+IMPORT{cmdline}="bootdev"
+
+SUBSYSTEM=="block" ENV{DEVTYPE}=="partition" ENV{ID_PART_ENTRY_SCHEME}=="gpt", ENV{ID_PART_ENTRY_NAME}=="?*", \
+	PROGRAM=="/usr/lib/udev/is-bootdev" SYMLINK+="disk/bootdev/by-partlabel/$env{ID_PART_ENTRY_NAME}"
