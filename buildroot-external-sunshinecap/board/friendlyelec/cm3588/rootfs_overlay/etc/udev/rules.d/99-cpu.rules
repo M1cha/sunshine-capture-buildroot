@@ -1,0 +1,1 @@
+KERNEL=="cpu[0-7]", SUBSYSTEM=="cpu", ATTR{cpufreq/scaling_governor}="performance"
