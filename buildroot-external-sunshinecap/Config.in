@@ -1,5 +1,6 @@
 source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/ffmpeg-cbs/Config.in"
 source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/ffmpeg-sunshine/Config.in"
+source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/growpart/Config.in"
 source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/librga/Config.in"
 source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/rkmpp/Config.in"
 source "$BR2_EXTERNAL_SUNSHINECAP_PATH/package/sunshine/Config.in"

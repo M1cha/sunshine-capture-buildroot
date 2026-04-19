@@ -1,0 +1,8 @@
+config BR2_PACKAGE_GROWPART
+	bool "growpart"
+	select BR2_PACKAGE_GPTFDISK
+	select BR2_PACKAGE_GPTFDISK_SGDISK
+	select BR2_PACKAGE_UTIL_LINUX_PARTX
+	select BR2_PACKAGE_UTIL_LINUX_BINARIES # sfdisk
+	help
+	  A script for growing a partition.

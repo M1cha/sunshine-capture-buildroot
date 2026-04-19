@@ -1,0 +1,10 @@
+#!/bin/ash
+
+set -euo pipefail
+
+what="$1"
+disk=$(lsblk -no PKNAME "$what")
+partition=$(lsblk -no PARTN "$what" | xargs)
+
+# It exits with 1 when growing is not needed
+growpart "/dev/$disk" "$partition" || true
