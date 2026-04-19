@@ -1,0 +1,11 @@
+#!/bin/ash
+
+set -euo pipefail
+
+config_source=/usr/share/sunshine/default.conf
+config_destination=/data/sunshine/sunshine.conf
+
+if [ ! -f "$config_destination" ]; then
+	mkdir -p "$(dirname "$config_destination")"
+	cp "$config_source" "$config_destination"
+fi

@@ -1,0 +1,16 @@
+[Unit]
+Description=Self-hosted game stream host for Moonlight
+StartLimitIntervalSec=500
+StartLimitBurst=5
+After=data.mount
+Requires=data.mount
+
+[Service]
+Environment=CONFIGURATION_DIRECTORY=/data
+ExecStartPre=/usr/lib/sunshine/init-config
+ExecStart=/usr/bin/sunshine
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
