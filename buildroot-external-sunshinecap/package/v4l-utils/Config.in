@@ -1,0 +1,5 @@
+config BR2_PACKAGE_V4L_UTILS
+	bool "v4l-utils"
+	help
+	  Userspace tools and conversion library for Video 4 Linux.
+
