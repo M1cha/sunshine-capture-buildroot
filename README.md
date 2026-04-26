@@ -11,6 +11,8 @@ Currently supported boards:
 See the
 [blog post](https://mzimmermann.info/posts/play-switch2-games-with-remote-friends/)
 if you want to know how this was developed.
+You can find prebuilt images on the
+[releases page](https://github.com/M1cha/sunshine-capture-buildroot/releases).
 
 ## Build
 
@@ -47,6 +49,9 @@ make
 ```
 
 ## Flash
+
+You can find prebuilt images on the
+[releases page](https://github.com/M1cha/sunshine-capture-buildroot/releases).
 
 ### On internal storage (eMMC)
 
